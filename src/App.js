@@ -48,29 +48,4 @@ function App () {
     )
 };
 
-// class App extends React.Component {
-
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//             data: {},
-//         }
-//     }
-
-//     componentDidMount() {
-//         this.fetchData();
-//     }
-
-//     fetchData() {
-//         const token = '058c85fd-3c79-42a3-9236-b83d35588103';
-//         const rousseApi = 'https://cloudplatform.coveo.com/rest/search?access_token=' + token + '&q=Bi%C3%A8re%20rousse';
-//         fetch(rousseApi).then(response => response.json()).then(data => console.log(data));
-//     } 
-//     render () {
-//         return (
-//             <div></div>
-//         )
-//     }
-// }
-
 export default App;
