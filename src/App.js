@@ -1,13 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import Product from './components/Product/Product';
+require('dotenv').config();
 
 function App () {
-
-    const token = '058c85fd-3c79-42a3-9236-b83d35588103';
-    
-    const rousseApi = 'https://cloudplatform.coveo.com/rest/search?access_token=' + token + '&q=Bi%C3%A8re%20rousse'; 
-    const beerUnder10Api = 'https://cloudplatform.coveo.com/rest/search?access_token=' + token + '&q=@tpprixnum%3C10';
-    const merlotApi = 'https://cloudplatform.coveo.com/rest/search?access_token=' + token + '&q=@tpcepagenomsplitgroup==Merlot';
+    const rousseApi = process.env.REACT_APP_SEARCH + process.env.REACT_APP_TOKEN + process.env.REACT_APP_ROUSSE_API; 
+    const beerUnder10Api = process.env.REACT_APP_SEARCH + process.env.REACT_APP_TOKEN + process.env.REACT_APP_BEER_UNDER_10_API;
+    const merlotApi = process.env.REACT_APP_SEARCH + process.env.REACT_APP_TOKEN + process.env.REACT_APP_MERLOT_API;
 
     const [beverages, setBeverages] = useState([]);
     const [amberAles, setAmberAles] = useState([]);
@@ -15,12 +13,15 @@ function App () {
     const [merlot, setMerlot] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    useEffect(async () => {
-        const amberAlesResult = await getAmberAles();
-        const beersUnder10Result = await getBeersUnder10();
-        const merlotResult = await getMerlot();
-        let allBeverages = [...amberAlesResult, ...beersUnder10Result, ...merlotResult];
-        setBeverages(allBeverages);
+    useEffect(() => {
+        async function fetchData() {
+            const amberAlesResult = await getAmberAles();
+            const beersUnder10Result = await getBeersUnder10();
+            const merlotResult = await getMerlot();
+            let allBeverages = [...amberAlesResult, ...beersUnder10Result, ...merlotResult];
+            setBeverages(allBeverages);
+        }
+        fetchData();
     },[]);
     
     const getAmberAles = async () => {
@@ -46,7 +47,7 @@ function App () {
 
     return (
         <div>
-            {beverages.map(beverage => (<Product title={beverage.title} image={beverage.raw.tpthumbnailuri}/>))}
+            {beverages.map(beverage => (<Product title={beverage.title} image={beverage.raw.tpthumbnailuri} key={beverage.raw.tpcodesaq}/>))}
         </div>
     )
 };
