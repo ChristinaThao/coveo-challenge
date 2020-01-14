@@ -1,12 +1,13 @@
 import React, {useContext, useEffect}from 'react';
 
+import Product from '../Product/Product';
+
 import { AmberAlesContext } from '../../context/AmberAlesContext';
 import { BeersUnder10Context } from '../../context/BeersUnder10Context';
-
-import Product from '../Product/Product';
-import { DisplayedProductsContext } from '../../context/DisplayedProductsContext';
 import { MerlotsContext } from '../../context/MerlotsContext';
+import { DisplayedProductsContext } from '../../context/DisplayedProductsContext';
 import { SearchWordContext } from '../../context/SearchWordContext';
+
 
 const DisplayProducts = () => {
     const [amberAles, setAmberAles] = useContext(AmberAlesContext);
@@ -15,47 +16,70 @@ const DisplayProducts = () => {
     const [displayedProducts, setDisplayedProducts] = useContext(DisplayedProductsContext);
     const [searchWord, setSearchWord] = useContext(SearchWordContext);
 
-    const rousseApi = process.env.REACT_APP_SEARCH + process.env.REACT_APP_TOKEN + process.env.REACT_APP_ROUSSE_API;
+    const amberAleApi = process.env.REACT_APP_SEARCH + process.env.REACT_APP_TOKEN + process.env.REACT_APP_ROUSSE_API;
     const beerUnder10Api = process.env.REACT_APP_SEARCH + process.env.REACT_APP_TOKEN + process.env.REACT_APP_BEER_UNDER_10_API;
     const merlotApi = process.env.REACT_APP_SEARCH + process.env.REACT_APP_TOKEN + process.env.REACT_APP_MERLOT_API;
 
+    async function fetchApi (uri, setData) {
+        const response = await fetch(uri);
+        const data = await response.json();
+        setData(data.results);
+        return data.results;
+    }
+
     useEffect(() => {
         async function fetchData() {
-            const amberAlesResult = await getAmberAles();
-            const beersUnder10Result = await getBeersUnder10();
-            const merlotsResult = await getMerlots();
+            const getAmberAles = fetchApi(amberAleApi, setAmberAles);
+            const getBeersUnder10 = fetchApi(beerUnder10Api, setBeersUnder10);
+            const getMerlots = fetchApi(merlotApi, setMerlots);
+
+            const amberAlesResult = await getAmberAles;
+            const beersUnder10Result = await getBeersUnder10;
+            const merlotsResult = await getMerlots;
             setDisplayedProducts([...amberAlesResult, ...beersUnder10Result, ...merlotsResult])
         }
         fetchData();
     },[]);
 
-    const getAmberAles = async () => {
-        const response = await fetch(rousseApi);
-        const data = await response.json();
-        setAmberAles(data.results);
-        return data.results;
-    }
+    useEffect(() => {
+        function filterWithSearchWord() {
+            if (searchWord.length > 0) {
+                let keyword = searchWord.toLowerCase();
+                
+                let filteredProducts = displayedProducts.filter(function(displayedProduct){
 
-    const getBeersUnder10 = async () => {
-        const response = await fetch(beerUnder10Api);
-        const data = await response.json();
-        setBeersUnder10(data.results);
-        return data.results;
-    }
+                    let title = "";
+                    let country = "";
+                    let producer = "";
 
-    const getMerlots = async () => {
-        const response = await fetch(merlotApi);
-        const data = await response.json();
-        setMerlots(data.results);
-        return data.results;
-    }
+                    if (displayedProduct.raw.systitle) {
+                        title = displayedProduct.raw.systitle.toLowerCase();
+                    }
 
-    if (displayedProducts.length > 0 ) {
+                    if (displayedProduct.raw.tppays) {
+                        country = displayedProduct.raw.tppays.toLowerCase();
+                    }
+                    if (displayedProduct.raw.tpproducteur) {
+                        producer = displayedProduct.raw.tpproducteur.toLowerCase();
+                    }
+                    
+                    if (title.includes(keyword) || country.includes(keyword) || producer.includes(keyword)) {
+                        return displayedProduct;
+                    } 
+                });
+                setDisplayedProducts(filteredProducts);
+            }
+        }
+        filterWithSearchWord();
+    },[searchWord])
+    
+    if (displayedProducts.length > 0 && displayedProducts != undefined) {
            return (
                <div>
-                   {searchWord.length > 0 ? (<div>SearchWord : {searchWord}</div>) : ''}
+                   {searchWord.length > 0 && searchWord != null ? (<div>Resultat pour: {searchWord}</div>) : ''}
                    {displayedProducts.map(displayedProduct => 
-                        (<Product title={displayedProduct.title} image={displayedProduct.raw.tpthumbnailuri} key={displayedProduct.raw.tpcodesaq}/>))}
+                        (<Product title={displayedProduct.raw.systitle} 
+                            image={displayedProduct.raw.tpthumbnailuri} key={displayedProduct.raw.tpcodesaq}/>))}
                </div>
            )
     } else {
