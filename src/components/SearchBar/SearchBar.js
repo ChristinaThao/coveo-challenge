@@ -3,6 +3,8 @@ import React, {useContext, useState} from 'react';
 import { SearchWordContext } from '../../context/SearchWordContext';
 import { DisplayedProductsContext } from '../../context/DisplayedProductsContext';
 
+import './SearchBar.scss';
+
 import { IoIosSearch } from "react-icons/io";
 
 const SearchBar = () => {
@@ -22,10 +24,10 @@ const SearchBar = () => {
     }
 
     return (
-        <div>
-            <form onSubmit={search}>
-                <input type="text" name="searchWord" value={keyword} onChange={updateKeyword}/>
-                <button type="submit">
+        <div className='search-bar'>
+            <form onSubmit={search} className='search-form'>
+                <input type="text" name="searchWord" value={keyword} onChange={updateKeyword} className='keyword-input'/>
+                <button type="submit" className='submit-button'>
                     <IoIosSearch/>
                 </button>
             </form>
