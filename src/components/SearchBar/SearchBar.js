@@ -1,7 +1,6 @@
 import React, {useContext, useState} from 'react';
 
 import { SearchWordContext } from '../../context/SearchWordContext';
-import { DisplayedProductsContext } from '../../context/DisplayedProductsContext';
 
 import './SearchBar.scss';
 
@@ -11,16 +10,15 @@ const SearchBar = () => {
     const [searchWord, setSearchWord] = useContext(SearchWordContext);
     const [keyword, setKeyword] = useState('');
 
-    const [displayedProducts, setDisplayedProducts] = useContext(DisplayedProductsContext);
-
     const updateKeyword = (e) => {
         setKeyword(e.target.value);
     }
 
     const search = (e) => {
         e.preventDefault();
+        let searchcriteria = keyword + "&enableDidYouMean=true"
+        setSearchWord(searchcriteria);
         setKeyword('');
-        setSearchWord(keyword);
     }
 
     return (
@@ -28,7 +26,7 @@ const SearchBar = () => {
             <form onSubmit={search} className='search-form'>
                 <input type="text" name="searchWord" value={keyword} onChange={updateKeyword} className='keyword-input'/>
                 <button type="submit" className='submit-button'>
-                    <IoIosSearch/>
+                    <IoIosSearch size={'25px'}/>
                 </button>
             </form>
         </div>

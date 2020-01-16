@@ -1,13 +1,19 @@
 .search-bar {
     height: 40px;
     text-align: center;
+    position: relative;
+    
     .search-form {
         .keyword-input {
             height: 30px;
             font-size: 18px;
+            top: 50%;
         }
         .submit-button {
+            top: 50%;
             height: 30px;
+            border: none;
+            padding: 0;
         }
     }
 }

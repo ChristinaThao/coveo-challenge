@@ -5,18 +5,21 @@ import SearchBar from './components/SearchBar/SearchBar';
 
 import { SearchWordProvider } from './context/SearchWordContext';
 import { DisplayedProductsProvider } from './context/DisplayedProductsContext';
+import { UriProvider } from './context/UriContext';
 
 require('dotenv').config();
 
 function App () {
     return (
         <div>
-            <SearchWordProvider>
-                <DisplayedProductsProvider>
-                    <SearchBar/>
-                    <SearchResultPage/>
-                </DisplayedProductsProvider>
-            </SearchWordProvider>
+            <UriProvider>
+                <SearchWordProvider>
+                    <DisplayedProductsProvider>
+                        <SearchBar/>
+                        <SearchResultPage/>
+                    </DisplayedProductsProvider>
+                </SearchWordProvider>
+            </UriProvider>
         </div>
     )
 };

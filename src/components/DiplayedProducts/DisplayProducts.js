@@ -6,49 +6,10 @@ import './DisplayProducts.scss';
 import { DisplayedProductsContext } from '../../context/DisplayedProductsContext';
 import { SearchWordContext } from '../../context/SearchWordContext';
 
-
-const DisplayProducts = () => {
+const DisplayProducts = ({correctedSearchWord}) => {
     const [displayedProducts, setDisplayedProducts] = useContext(DisplayedProductsContext);
     const [searchWord, setSearchWord] = useContext(SearchWordContext);
-    const [resultSize, setResultSize] = useState(18);
-    const [numberOfPages, setNumberOfPages] = useState(0);
-    const [firstResultIndex, setFirstResultIndex] = useState(0);
-    const [uri, setUri] = useState("");
-    const initUri = process.env.REACT_APP_SEARCH + process.env.REACT_APP_TOKEN + "&numberOfResults=" + resultSize;
-    useEffect(() => {
-        setUri(initUri);
-    },[]);
 
-    useEffect(() => {
-        fetchData();
-    },[uri]);
-
-    async function fetchData() {
-        const response = await fetch(uri); 
-        const data = await response.json(); 
-        if (data.totalCount != 0) {
-            let numOfPages =(data.totalCount / resultSize);
-            numOfPages = Math.ceil(numOfPages);
-            setNumberOfPages(numOfPages);
-            setDisplayedProducts(data.results);
-        } else {
-            setNumberOfPages(0);
-            setDisplayedProducts(undefined);
-        }
-    }
-
-    useEffect(() => {
-        function filterWithSearchWord() {
-            if (searchWord.length > 0) {
-                let newQuery = uri + "&q=" + searchWord;
-                setUri(newQuery);
-            } else {
-                setUri(initUri);
-            }
-        }
-        filterWithSearchWord();
-    },[searchWord])
-    
     if (displayedProducts != undefined) {
         return (
             <div className="display-results">
@@ -57,7 +18,7 @@ const DisplayProducts = () => {
                 </div>
                 <div className="display-products">
                     {displayedProducts.map(displayedProduct => 
-                        (<Product title={displayedProduct.raw.systitle} 
+                        (<Product title={displayedProduct.raw.systitle} price={displayedProduct.raw.tpprixnum}
                             image={displayedProduct.raw.tpthumbnailuri} key={displayedProduct.raw.tpcodesaq}/>))}
                 </div>
                 <div className="pagination">
@@ -66,7 +27,11 @@ const DisplayProducts = () => {
             </div>
            )
     } else {
-        return <div>No Products Found</div>
+        return (
+            <div>
+                {searchWord.length > 0 && searchWord != null ? (<div>No results found for {searchWord}. Did you mean {correctedSearchWord}</div>) : (<div></div>)}
+            </div>
+        )
     }
 }
 
