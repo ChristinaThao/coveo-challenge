@@ -3,11 +3,9 @@ import React, {useContext, useEffect, useState}from 'react';
 import Product from '../Product/Product';
 import './DisplayProducts.scss';
 
-import { DisplayedProductsContext } from '../../context/DisplayedProductsContext';
 import { ApiGetParamsContext } from '../../context/ApiGetParamsContext';
 
-const DisplayProducts = ({correctedSearchWord}) => {
-    const [displayedProducts, setDisplayedProducts] = useContext(DisplayedProductsContext);
+const DisplayProducts = ({correctedSearchWord, displayedProducts}) => {
     const [apiGetParams, setApiGetParams] = useContext(ApiGetParamsContext);
 
     if (displayedProducts != undefined) {

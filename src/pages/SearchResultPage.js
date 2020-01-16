@@ -3,12 +3,11 @@ import React, {useEffect, useContext, useState} from 'react';
 import DisplayProducts from '../components/DiplayedProducts/DisplayProducts';
 import Pagination from '../components/Pagination/Pagination';
 
-import { DisplayedProductsContext } from '../context/DisplayedProductsContext';
 import { UriContext } from '../context/UriContext';
 import { ApiGetParamsContext } from '../context/ApiGetParamsContext';
 
 const SearchResultPage = () => {
-    const [displayedProducts, setDisplayedProducts] = useContext(DisplayedProductsContext);
+    const [displayedProducts, setDisplayedProducts] = useState([]);
     const [apiGetParams, setApiGetParams] = useContext(ApiGetParamsContext);
     const [uri, setUri] = useContext(UriContext);
     const [resultSize, setResultSize] = useState(12);
@@ -68,7 +67,7 @@ const SearchResultPage = () => {
     return (
         <div>
             <Pagination numberOfPages={numberOfPages}/>
-            <DisplayProducts correctedSearchWord={correctedSearchWord}/>
+            <DisplayProducts correctedSearchWord={correctedSearchWord} displayedProducts={displayedProducts}/>
         </div>
     );
 }

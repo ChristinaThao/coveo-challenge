@@ -3,7 +3,6 @@ import React from 'react';
 import SearchResultPage from './pages/SearchResultPage';
 import SearchBar from './components/SearchBar/SearchBar';
 
-import { DisplayedProductsProvider } from './context/DisplayedProductsContext';
 import { UriProvider } from './context/UriContext';
 import { ApiGetParamsProvider} from './context/ApiGetParamsContext';
 
@@ -14,10 +13,8 @@ function App () {
         <div>
             <ApiGetParamsProvider>
                 <UriProvider>
-                    <DisplayedProductsProvider>
-                        <SearchBar/>
-                        <SearchResultPage/>
-                    </DisplayedProductsProvider>
+                    <SearchBar/>
+                    <SearchResultPage/>
                 </UriProvider>
            </ApiGetParamsProvider>
         </div>
