@@ -1,6 +1,7 @@
 import React, {useEffect, useContext, useState} from 'react';
 
 import DisplayProducts from '../components/DiplayedProducts/DisplayProducts';
+import Pagination from '../components/Pagination/Pagination';
 
 import { DisplayedProductsContext } from '../context/DisplayedProductsContext';
 import { SearchWordContext } from '../context/SearchWordContext';
@@ -9,7 +10,7 @@ import { UriContext } from '../context/UriContext';
 const SearchResultPage = () => {
     const [displayedProducts, setDisplayedProducts] = useContext(DisplayedProductsContext);
     const [searchWord, setSearchWord] = useContext(SearchWordContext);
-    const [uri, setUri] = useContext(UriContext);
+    const [uri, setUri, currentPage, setCurrentPage] = useContext(UriContext);
     const [resultSize, setResultSize] = useState(12);
     const [numberOfPages, setNumberOfPages] = useState(0);
     const [firstResultIndex, setFirstResultIndex] = useState(0);
@@ -24,6 +25,12 @@ const SearchResultPage = () => {
     useEffect(() => {
         fetchData();
     },[uri]);
+
+    useEffect(() => {
+        let firstIndex = currentPage*resultSize
+        let newUri = uri + '&firstResult=' + firstIndex;
+        setUri(newUri);
+    }, [currentPage])
 
     async function fetchData() {
         const response = await fetch(uri); 
@@ -58,7 +65,10 @@ const SearchResultPage = () => {
     },[searchWord])
 
     return (
-        <DisplayProducts correctedSearchWord={correctedSearchWord}/>
+        <div>
+            <Pagination numberOfPages={numberOfPages}/>
+            <DisplayProducts correctedSearchWord={correctedSearchWord}/>
+        </div>
     );
 }
 
