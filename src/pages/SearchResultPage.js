@@ -10,12 +10,9 @@ const SearchResultPage = () => {
     const [displayedProducts, setDisplayedProducts] = useState([]);
     const [apiGetParams, setApiGetParams] = useContext(ApiGetParamsContext);
     const [uri, setUri] = useContext(UriContext);
-    const [resultSize, setResultSize] = useState(12);
     const [numberOfPages, setNumberOfPages] = useState(0);
     const [correctedSearchWord, setCorrectedSearchWord] = useState("");
 
-    const initUri = process.env.REACT_APP_SEARCH + process.env.REACT_APP_TOKEN;
-    
     useEffect(() => {
         setApiGetParams({q: "", sortCriteria: "", currentPage: 1, size: 12, enableDidYouMean: true});
     },[]);
@@ -49,7 +46,7 @@ const SearchResultPage = () => {
         const response = await fetch(uri); 
         const data = await response.json(); 
         if (data.totalCount != 0) {
-            let numOfPages =(data.totalCount / resultSize);
+            let numOfPages =(data.totalCount / apiGetParams.size);
             numOfPages = Math.ceil(numOfPages);
             setNumberOfPages(numOfPages);
             setDisplayedProducts(data.results);
