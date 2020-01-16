@@ -4,22 +4,21 @@ import DisplayProducts from '../components/DiplayedProducts/DisplayProducts';
 import Pagination from '../components/Pagination/Pagination';
 
 import { DisplayedProductsContext } from '../context/DisplayedProductsContext';
-import { SearchWordContext } from '../context/SearchWordContext';
 import { UriContext } from '../context/UriContext';
+import { ApiGetParamsContext } from '../context/ApiGetParamsContext';
 
 const SearchResultPage = () => {
     const [displayedProducts, setDisplayedProducts] = useContext(DisplayedProductsContext);
-    const [searchWord, setSearchWord] = useContext(SearchWordContext);
-    const [uri, setUri, currentPage, setCurrentPage] = useContext(UriContext);
+    const [apiGetParams, setApiGetParams] = useContext(ApiGetParamsContext);
+    const [uri, setUri] = useContext(UriContext);
     const [resultSize, setResultSize] = useState(12);
     const [numberOfPages, setNumberOfPages] = useState(0);
-    const [firstResultIndex, setFirstResultIndex] = useState(0);
     const [correctedSearchWord, setCorrectedSearchWord] = useState("");
 
-    const initUri = process.env.REACT_APP_SEARCH + process.env.REACT_APP_TOKEN + "&numberOfResults=" + resultSize;
+    const initUri = process.env.REACT_APP_SEARCH + process.env.REACT_APP_TOKEN;
     
     useEffect(() => {
-        setUri(initUri);
+        setApiGetParams({q: "", sortCriteria: "", currentPage: 1, size: 12, enableDidYouMean: true});
     },[]);
 
     useEffect(() => {
@@ -27,10 +26,25 @@ const SearchResultPage = () => {
     },[uri]);
 
     useEffect(() => {
-        let firstIndex = currentPage*resultSize
-        let newUri = uri + '&firstResult=' + firstIndex;
+        let newUri = process.env.REACT_APP_SEARCH + process.env.REACT_APP_TOKEN;
+        
+        if (apiGetParams.q != "" && apiGetParams.q != undefined) {
+            newUri = newUri + "&q=" + apiGetParams.q;
+        }
+
+        if (apiGetParams.sortCriteria != "" && apiGetParams.sortCriteria != undefined){
+            newUri = newUri + "&sortCriteria=" + apiGetParams.sortCriteria;
+        }
+
+        if (apiGetParams.currentPage != 1  && apiGetParams.currentPage != undefined){
+            let firstIndex = (apiGetParams.currentPage - 1)*apiGetParams.size;
+            newUri = newUri + "&firstResult=" + firstIndex;
+        }
+
+        newUri = newUri + "&numberOfResults=" + apiGetParams.size;
         setUri(newUri);
-    }, [currentPage])
+
+    }, [apiGetParams])
 
     async function fetchData() {
         const response = await fetch(uri); 
@@ -50,19 +64,6 @@ const SearchResultPage = () => {
             setDisplayedProducts(undefined);
         }
     }
-
-    useEffect(() => {
-        function filterWithSearchWord() {
-            if (searchWord.length > 0) {
-                //let newQuery = uri + encodeURI(`&sortCriteria=@tpmillesime descending`);
-                let newQuery = uri + "&q=" + searchWord;
-                setUri(newQuery);
-            } else {
-                setUri(initUri);
-            }
-        }
-        filterWithSearchWord();
-    },[searchWord])
 
     return (
         <div>

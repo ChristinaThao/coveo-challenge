@@ -4,32 +4,30 @@ import Product from '../Product/Product';
 import './DisplayProducts.scss';
 
 import { DisplayedProductsContext } from '../../context/DisplayedProductsContext';
-import { SearchWordContext } from '../../context/SearchWordContext';
+import { ApiGetParamsContext } from '../../context/ApiGetParamsContext';
 
 const DisplayProducts = ({correctedSearchWord}) => {
     const [displayedProducts, setDisplayedProducts] = useContext(DisplayedProductsContext);
-    const [searchWord, setSearchWord] = useContext(SearchWordContext);
+    const [apiGetParams, setApiGetParams] = useContext(ApiGetParamsContext);
 
     if (displayedProducts != undefined) {
         return (
             <div className="display-results">
                 <div className="query-params">
-                    {searchWord.length > 0 && searchWord != null ? (<div>Resultat pour: {searchWord}</div>) : ''}
+                    {apiGetParams.q.length > 0 && apiGetParams.q != null ? (<div>Resultat pour: {apiGetParams.q}</div>) : ''}
                 </div>
                 <div className="display-products">
                     {displayedProducts.map(displayedProduct => 
                         (<Product title={displayedProduct.raw.systitle} price={displayedProduct.raw.tpprixnum}
                             image={displayedProduct.raw.tpthumbnailuri} key={displayedProduct.raw.tpcodesaq}/>))}
                 </div>
-                <div className="pagination">
-                    
-                </div>
             </div>
            )
     } else {
         return (
             <div>
-                {searchWord.length > 0 && searchWord != null ? (<div>No results found for {searchWord}. Did you mean {correctedSearchWord}</div>) : (<div></div>)}
+                {apiGetParams.q > 0 && apiGetParams.q != null ? (<div>Aucun resultat trouver pour: {apiGetParams.q}.</div>) : (<div></div>)}
+                {correctedSearchWord.length > 0 && correctedSearchWord != null ? (<div>Voulez-vous dire: {correctedSearchWord}.</div>) : (<div></div>)}
             </div>
         )
     }
