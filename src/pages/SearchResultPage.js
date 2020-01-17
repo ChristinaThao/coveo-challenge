@@ -35,7 +35,7 @@ const SearchResultPage = () => {
         if (apiGetParams.filterCriteria != undefined) {
             const {price} = apiGetParams.filterCriteria;
             if(price.length == 2) {
-                newUri = newUri.includes("&q=") ?  newUri + "&@tpprixnum=" + price[0] + ".." + price[1] 
+                newUri = newUri.includes("&q=") ?  newUri + "&aq=@tpprixnum=" + price[0] + ".." + price[1] 
                     : newUri + "&q=@tpprixnum=" + price[0] + ".." + price[1];
             }
         }
@@ -49,9 +49,8 @@ const SearchResultPage = () => {
             newUri = newUri + "&firstResult=" + firstIndex;
         }
 
-       
-
         newUri = newUri + "&numberOfResults=" + apiGetParams.size;
+        console.log(newUri);
         setUri(newUri);
 
     }, [apiGetParams])
