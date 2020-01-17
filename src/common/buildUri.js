@@ -1,6 +1,4 @@
-export default function buildUri (apiGetParams) {
-
-    let newUri = process.env.REACT_APP_SEARCH + process.env.REACT_APP_TOKEN;
+export default function buildUri (newUri, apiGetParams) {
         
     if (apiGetParams.q != "" && apiGetParams.q != undefined) {
         newUri = newUri + "&q=" + apiGetParams.q;

@@ -14,9 +14,8 @@ const FilterCriteriaDropdown = ({criteria}) => {
 
 
     function onChangeOptions(e) {
-        console.log(e.target.value);
         if (criteria.attribute="category") {
-            setApiGetParams({...apiGetParams, q: e.target.value, filterCriteria: {price: []}, currentPage: 1})
+            setApiGetParams({q: e.target.value, sortCriteria: "", currentPage: 1, size: 12, enableDidYouMean: true, filterCriteria: {price: []}})
         }
     }
     return (

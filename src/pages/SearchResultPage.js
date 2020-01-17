@@ -28,7 +28,8 @@ const SearchResultPage = () => {
     },[uri]);
 
     useEffect(() => {
-        let newUri = buildUri(apiGetParams);
+        let initUri = process.env.REACT_APP_SEARCH + process.env.REACT_APP_TOKEN;
+        let newUri = buildUri(initUri, apiGetParams);
         setUri(newUri);
 
     }, [apiGetParams])
