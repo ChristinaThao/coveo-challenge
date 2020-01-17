@@ -10,7 +10,7 @@ import { ApiGetParamsContext } from '../context/ApiGetParamsContext';
 
 import './SearchResultPage.scss';
 
-import buildUri from '../hooks/buildUri';
+import buildUri from '../common/buildUri';
 
 const SearchResultPage = () => {
     const [displayedProducts, setDisplayedProducts] = useState([]);
