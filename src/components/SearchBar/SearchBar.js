@@ -23,7 +23,8 @@ const SearchBar = () => {
     return (
         <div className='search-bar'>
             <form onSubmit={search} className='search-form'>
-                <input type="text" name="keyword" value={keyword} onChange={updateKeyword} className='keyword-input'/>
+                <input type="text" name="keyword" value={keyword} placeholder="Enter keyword"
+                    onChange={updateKeyword} className='keyword-input'/>
                 <button type="submit" className='submit-button'>
                     <IoIosSearch size={'25px'}/>
                 </button>

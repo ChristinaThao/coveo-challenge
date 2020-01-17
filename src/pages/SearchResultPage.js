@@ -18,7 +18,7 @@ const SearchResultPage = () => {
     const [correctedSearchWord, setCorrectedSearchWord] = useState("");
 
     useEffect(() => {
-        setApiGetParams({q: "", sortCriteria: "", currentPage: 1, size: 12, enableDidYouMean: true});
+        setApiGetParams({q: "", sortCriteria: "", currentPage: 1, size: 12, enableDidYouMean: true, filterCriteria: {category: "", price: []}});
     },[]);
 
     useEffect(() => {
@@ -32,6 +32,14 @@ const SearchResultPage = () => {
             newUri = newUri + "&q=" + apiGetParams.q;
         }
 
+        if (apiGetParams.filterCriteria != undefined) {
+            const {price} = apiGetParams.filterCriteria;
+            if(price.length == 2) {
+                newUri = newUri.includes("&q=") ?  newUri + "&@tpprixnum=" + price[0] + ".." + price[1] 
+                    : newUri + "&q=@tpprixnum=" + price[0] + ".." + price[1];
+            }
+        }
+
         if (apiGetParams.sortCriteria != "" && apiGetParams.sortCriteria != undefined){
             newUri = newUri + "&sortCriteria=" + apiGetParams.sortCriteria;
         }
@@ -40,6 +48,8 @@ const SearchResultPage = () => {
             let firstIndex = (apiGetParams.currentPage - 1)*apiGetParams.size;
             newUri = newUri + "&firstResult=" + firstIndex;
         }
+
+       
 
         newUri = newUri + "&numberOfResults=" + apiGetParams.size;
         setUri(newUri);
