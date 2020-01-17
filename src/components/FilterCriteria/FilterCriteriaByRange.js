@@ -30,7 +30,7 @@ const FilterCriteriaByRange = ({criteria}) => {
                 aria-labelledby="range-slider"
                 max={criteria.max}
                 min={criteria.min}
-                style={{width: '85%'}}
+                style={{width: '175px'}}
             />
         </div>
     );

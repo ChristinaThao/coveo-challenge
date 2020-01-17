@@ -28,7 +28,7 @@ const FilterCriteriaDropdown = ({criteria}) => {
                     id={criteria.title}
                     value={value}
                     onChange={e => onChangeOptions(e)}
-                    style={{width: '130px'}}
+                    style={{width: '180px'}}
                 >
                     {criteria.options.map(option => (
                          <MenuItem value={option.value} key={option.value}>{option.name}</MenuItem>
