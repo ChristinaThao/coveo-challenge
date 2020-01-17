@@ -1,6 +1,5 @@
 import React from 'react';
 
-import FilterCriteria from '../FilterCriteria/FilterCriteria';
 import FilterCriteriaDropdown from '../FilterCriteria/FilterCriteriaDropdown';
 import FilterCriteriaByRange from '../FilterCriteria/FilterCriteriaByRange';
 
