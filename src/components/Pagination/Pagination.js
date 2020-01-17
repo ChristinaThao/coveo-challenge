@@ -47,7 +47,7 @@ const Pagination = ({numberOfPages}) => {
                 <button className='page-number' value={numberOfPages} key={numberOfPages} onClick={e => onChangeCurrentPage(e)}>{numberOfPages}</button>
             </div>
         )
-    } else if (Number(apiGetParams.currentPage) > 2 && Number(apiGetParams.currentPage) <= (Number(numberOfPages)-2)) {
+    } else if (apiGetParams.currentPage > 2 && apiGetParams.currentPage <= (numberOfPages-2)) {
         return (
             <div className='page-numbers'>
                 <button className='page-number' value={1} key={1} onClick={e => onChangeCurrentPage(e)}>1</button>

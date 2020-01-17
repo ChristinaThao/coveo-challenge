@@ -78,7 +78,9 @@ const SearchResultPage = () => {
                 <br/>
                 <DisplayProducts correctedSearchWord={correctedSearchWord} displayedProducts={displayedProducts}/>
                 <br/>
-                <Pagination numberOfPages={numberOfPages}/>
+                <div className='option'>
+                    <Pagination numberOfPages={numberOfPages}/>
+                </div>
             </div>
         </div>
     );
