@@ -18,7 +18,7 @@ const SearchResultPage = () => {
     const [correctedSearchWord, setCorrectedSearchWord] = useState("");
 
     useEffect(() => {
-        setApiGetParams({q: "", sortCriteria: "", currentPage: 1, size: 12, enableDidYouMean: true, filterCriteria: {category: "", price: []}});
+        setApiGetParams({q: "", sortCriteria: "", currentPage: 1, size: 12, enableDidYouMean: true, filterCriteria: {price: []}});
     },[]);
 
     useEffect(() => {
@@ -50,7 +50,6 @@ const SearchResultPage = () => {
         }
 
         newUri = newUri + "&numberOfResults=" + apiGetParams.size;
-        console.log(newUri);
         setUri(newUri);
 
     }, [apiGetParams])

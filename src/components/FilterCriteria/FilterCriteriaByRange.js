@@ -5,7 +5,6 @@ import { ApiGetParamsContext } from '../../context/ApiGetParamsContext';
 
 import './FilterCriteria.scss';
   
-
 const FilterCriteriaByRange = ({criteria}) => {
     const [apiGetParams, setApiGetParams] = useContext(ApiGetParamsContext);
     const [value, setValue] = useState([criteria.min, criteria.max]);
@@ -16,6 +15,10 @@ const FilterCriteriaByRange = ({criteria}) => {
       newFilterCriteria.price = value;
       setApiGetParams({...apiGetParams, filterCriteria: newFilterCriteria});
     };
+
+    useEffect(() => {
+        setValue([criteria.min, criteria.max]);
+    }, [apiGetParams.q])
   
     return (
         <div className="criteria">

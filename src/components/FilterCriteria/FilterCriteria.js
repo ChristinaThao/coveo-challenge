@@ -6,10 +6,12 @@ import './FilterCriteria.scss';
 
 const FilterCriteria = ({criteria}) => {
     const [apiGetParams, setApiGetParams] = useContext(ApiGetParamsContext);
-    const [filters, setFilters] = useState([]);
 
     function onChangeOptions(e) {
         console.log(e.target.value);
+        if (criteria.attribute="category") {
+            setApiGetParams({...apiGetParams, q: e.target.value, filterCriteria: {price: []}})
+        }
     }
     return (
         <div className="criteria">

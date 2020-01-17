@@ -16,7 +16,7 @@ const SearchBar = () => {
 
     const search = (e) => {
         e.preventDefault();
-        setApiGetParams({q: keyword, sortCriteria: "", currentPage: 1, size: 12, enableDidYouMean: true});
+        setApiGetParams({q: keyword, sortCriteria: "", currentPage: 1, size: 12, enableDidYouMean: true, filterCriteria: {price: []}});
         setKeyword('');
     }
 

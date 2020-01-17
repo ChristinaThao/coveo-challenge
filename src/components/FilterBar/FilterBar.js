@@ -1,12 +1,13 @@
 import React from 'react';
 
 import FilterCriteria from '../FilterCriteria/FilterCriteria';
+import FilterCriteriaDropdown from '../FilterCriteria/FilterCriteriaDropdown';
 import FilterCriteriaByRange from '../FilterCriteria/FilterCriteriaByRange';
 
 const FilterBar = () => {
     const category = {
         title: "Category",
-        attribute: "",
+        attribute: "category",
         options: [
             {name:"Champagne", value:"Champagne"}, 
             {name:"Gin", value:"Gin"},
@@ -24,7 +25,7 @@ const FilterBar = () => {
 
     return (
         <div>
-            <FilterCriteria criteria={category}/>
+            <FilterCriteriaDropdown criteria={category}/>
             <FilterCriteriaByRange criteria={price}/>
         </div>
     )
