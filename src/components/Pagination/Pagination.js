@@ -6,7 +6,7 @@ import './Pagination.scss';
 
 const Pagination = ({numberOfPages}) => {
     const [apiGetParams, setApiGetParams] = useContext(ApiGetParamsContext);
-    const [values, setValues] = useState([1, 2, 3, 4]);
+    const [values, setValues] = useState([1, 2, 3]);
     
     let onChangeCurrentPage = (e) => {
         setApiGetParams({...apiGetParams, currentPage: e.target.value});
@@ -16,7 +16,7 @@ const Pagination = ({numberOfPages}) => {
         let newValues = [];
 
         if (apiGetParams.currentPage <= 2) {
-            newValues = [1, 2, 3, 4];
+            newValues = [1, 2, 3];
             setValues(newValues);
         } else if (apiGetParams.currentPage > 2 && apiGetParams.currentPage <= (numberOfPages-2)) {
             let prev = Number(apiGetParams.currentPage) - 1;
