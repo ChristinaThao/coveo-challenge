@@ -40,28 +40,32 @@ const Pagination = ({numberOfPages}) => {
 
     if (Number(apiGetParams.currentPage) <= 2) {
         return (
-            <div>
+            <div className='page-numbers'>
                 {values.map(value => (
-                    <button className='page-number' value={value} onClick={e => onChangeCurrentPage(e)}>{value}</button>))}
-                <button className='page-number' value={numberOfPages} onClick={e => onChangeCurrentPage(e)}>{numberOfPages}</button>
+                    <button className='page-number' value={value} key={value} onClick={e => onChangeCurrentPage(e)}>{value}</button>))}
+                ...
+                <button className='page-number' value={numberOfPages} key={numberOfPages} onClick={e => onChangeCurrentPage(e)}>{numberOfPages}</button>
             </div>
         )
     } else if (Number(apiGetParams.currentPage) > 2 && Number(apiGetParams.currentPage) <= (Number(numberOfPages)-2)) {
         return (
-            <div>
-                <button className='page-number' value={1} onClick={e => onChangeCurrentPage(e)}>1</button>
+            <div className='page-numbers'>
+                <button className='page-number' value={1} key={1} onClick={e => onChangeCurrentPage(e)}>1</button>
+                ...
                 {values.map(value => (
-                    <button className='page-number' value={value} onClick={e => onChangeCurrentPage(e)}>{value}</button>))}
-                <button className='page-number' value={numberOfPages} onClick={e => onChangeCurrentPage(e)}>{numberOfPages}</button>
+                    <button className='page-number' value={value} key={value} onClick={e => onChangeCurrentPage(e)}>{value}</button>))}
+                ...
+                <button className='page-number' value={numberOfPages} key={numberOfPages} onClick={e => onChangeCurrentPage(e)}>{numberOfPages}</button>
             </div>
         )
     }
 
     return (
-        <div>
-            <button className='page-number' value={1} onClick={e => onChangeCurrentPage(e)}>1</button>
+        <div className='page-numbers'>
+            <button className='page-number' value={1} key={1} onClick={e => onChangeCurrentPage(e)}>1</button>
+            ...
             {values.map(value => (
-                <button className='page-number' value={value} onClick={e => onChangeCurrentPage(e)}>{value}</button>))}
+                <button className='page-number' value={value} key={value} onClick={e => onChangeCurrentPage(e)}>{value}</button>))}
         </div>
     )
 

@@ -2,9 +2,13 @@ import React, {useEffect, useContext, useState} from 'react';
 
 import DisplayProducts from '../components/DiplayedProducts/DisplayProducts';
 import Pagination from '../components/Pagination/Pagination';
+import FilterBar from '../components/FilterBar/FilterBar';
+import SortCriteria from '../components/SortCriteria/SortCriteria';
 
 import { UriContext } from '../context/UriContext';
 import { ApiGetParamsContext } from '../context/ApiGetParamsContext';
+
+import './SearchResultPage.scss';
 
 const SearchResultPage = () => {
     const [displayedProducts, setDisplayedProducts] = useState([]);
@@ -62,9 +66,20 @@ const SearchResultPage = () => {
     }
 
     return (
-        <div>
-            <Pagination numberOfPages={numberOfPages}/>
-            <DisplayProducts correctedSearchWord={correctedSearchWord} displayedProducts={displayedProducts}/>
+        <div className='result-page'>
+            <div className='sidebar'>
+                <FilterBar/>
+            </div>
+            <div className='main-body'>
+                <div className='option'>
+                    <SortCriteria/>
+                    <Pagination numberOfPages={numberOfPages}/>
+                </div>
+                <br/>
+                <DisplayProducts correctedSearchWord={correctedSearchWord} displayedProducts={displayedProducts}/>
+                <br/>
+                <Pagination numberOfPages={numberOfPages}/>
+            </div>
         </div>
     );
 }

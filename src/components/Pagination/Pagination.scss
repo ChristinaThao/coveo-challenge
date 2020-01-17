@@ -1,6 +1,8 @@
-.page-number{
-    margin-left: 2px;
-    margin-right: 2px;
-    padding: 2px;
-    border: solid black 1px;
+.page-numbers {
+    width: 180px;
+    .page-number{
+        margin-left: 2px;
+        margin-right: 2px;
+        padding: 5px;
+    }
 }

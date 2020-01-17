@@ -1,0 +1,15 @@
+.result-page {
+    display: inline-flex;
+    .sidebar{
+        width: 20%;
+    }
+    .main-body {
+        width: 80%;
+        text-align: right;
+        .option{
+            display: inline-flex;
+            text-align: right;
+            padding-right: 5%;
+        }
+    }
+}
