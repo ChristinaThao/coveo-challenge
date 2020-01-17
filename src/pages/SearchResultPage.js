@@ -40,6 +40,10 @@ const SearchResultPage = () => {
             }
         }
 
+        if (apiGetParams.enableDidYouMean) {
+            newUri = newUri + "&enableDidYouMean=true";
+        }
+
         if (apiGetParams.sortCriteria != "" && apiGetParams.sortCriteria != undefined){
             newUri = newUri + "&sortCriteria=" + apiGetParams.sortCriteria;
         }
@@ -74,22 +78,33 @@ const SearchResultPage = () => {
     }
 
     return (
-        <div className='result-page'>
-            <div className='sidebar'>
-                <FilterBar/>
-            </div>
-            <div className='main-body'>
-                <div className='option'>
-                    <SortCriteria/>
-                    <Pagination numberOfPages={numberOfPages}/>
-                </div>
-                <br/>
-                <DisplayProducts correctedSearchWord={correctedSearchWord} displayedProducts={displayedProducts}/>
-                <br/>
-                <div className='option'>
-                    <Pagination numberOfPages={numberOfPages}/>
-                </div>
-            </div>
+        <div>
+            { displayedProducts ? 
+                <div className='result-page'>
+                    <div className='sidebar'>
+                        <FilterBar/>
+                    </div>
+                    <div className='main-body'>
+                        <div className='option'>
+                            <SortCriteria/>
+                            <Pagination numberOfPages={numberOfPages}/>
+                        </div>
+                        <br/>
+                        <DisplayProducts correctedSearchWord={correctedSearchWord} displayedProducts={displayedProducts}/>
+                        <br/>
+                        <div className='option'>
+                            <Pagination numberOfPages={numberOfPages}/>
+                        </div>
+                    </div>
+                </div> 
+                : <div className='no-results'>
+                    <div>
+                        {console.log(apiGetParams.q)}
+                        {apiGetParams.q.length > 0 && apiGetParams.q != null ? (<div>Aucun resultat trouver pour: {apiGetParams.q}.</div>) : (<div></div>)}
+                        {correctedSearchWord.length > 0 && correctedSearchWord != null ? (<div>Voulez-vous dire: {correctedSearchWord}.</div>) : (<div></div>)}
+                    </div>
+                </div>}
+            
         </div>
     );
 }
