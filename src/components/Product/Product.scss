@@ -1,5 +1,5 @@
 .product {
-    height: 275px;
+    height: 300px;
     width: 25%;
     display: inline-flex;
     flex-direction: column;
@@ -15,6 +15,14 @@
         background-size: cover;
         background-position: center;
         margin-bottom: 1%;
+    }
+
+    .details {
+        display: inline-flex;
+
+        .country{
+            margin-right: 10px;
+        } 
     }
 
     @media screen and (min-width: 1111px) {
