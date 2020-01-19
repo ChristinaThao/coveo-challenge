@@ -29,10 +29,6 @@ describe('DisplayProducts', () =>{
 
     ]
 
-    beforeEach(() => {
-        
-    }) 
-
     it('loads DisplayProducts', () => {
         wrapper = mount(<DisplayProducts searchWord="" displayedProducts={[]}/>);
         expect(wrapper).not.toBeNull();

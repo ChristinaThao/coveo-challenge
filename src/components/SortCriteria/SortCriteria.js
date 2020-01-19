@@ -4,18 +4,22 @@ import { ApiGetParamsContext } from '../../context/ApiGetParamsContext';
 
 import './SortCriteria.scss';
 
+export function sortCriteriaString (value, currentCriteria) {
+    let sort = "";
+
+    if (value != "") {
+        sort = value.toString();
+        sort = currentCriteria.includes("desc") ? sort + " ascending" : sort + " descending";
+    }
+
+    return sort;    
+}
+
 const SortCriteria = () => {
     const [apiGetParams, setApiGetParams] = useContext(ApiGetParamsContext);
 
     function updateSortCriteria(e) {
-
-        let sort = "";
-
-        if (e.target.value != "") {
-            sort = e.target.value.toString();
-            sort = apiGetParams.sortCriteria.includes("desc") ? sort + " ascending" : sort + " descending";
-        }
- 
+        let sort = sortCriteriaString(e.target.value, apiGetParams.sortCriteria);
         setApiGetParams({...apiGetParams, sortCriteria: sort});
     }
 

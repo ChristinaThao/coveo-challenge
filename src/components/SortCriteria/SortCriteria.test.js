@@ -4,7 +4,7 @@ import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import {render} from '@testing-library/react';
 
-import SortCriteria from './SortCriteria';
+import SortCriteria, {sortCriteriaString} from './SortCriteria';
 import {ApiGetParamsContext} from '../../context/ApiGetParamsContext';
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -33,4 +33,18 @@ describe('SortCriteria', () => {
         expect(wrapper).not.toBeNull();
     });
 
+    it('should test sortCriteriaString', () => {
+        let sortCriteria = sortCriteriaString("", "");
+        expect(sortCriteria).toEqual("");
+    });
+
+    it('should test sortCriteriaString to get descending', () => {
+        let sortCriteria = sortCriteriaString("@tpprixnum", "");
+        expect(sortCriteria).toEqual("@tpprixnum descending");
+    });
+
+    it('should test sortCriteriaString to get ascending', () => {
+        let sortCriteria = sortCriteriaString("@tpprixnum", "@tpprixnum descending");
+        expect(sortCriteria).toEqual("@tpprixnum ascending");
+    });
 });
