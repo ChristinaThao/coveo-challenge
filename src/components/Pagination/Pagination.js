@@ -4,6 +4,28 @@ import { ApiGetParamsContext } from '../../context/ApiGetParamsContext';
 
 import './Pagination.scss';
 
+export function setPageRangeValues(currentPage, numberOfPages) {
+    let newValues = [];
+    if (currentPage <= 2) {
+        newValues = [1, 2, 3];
+    } else if (currentPage > 2 && currentPage <= (numberOfPages-2)) {
+        let prev = Number(currentPage) - 1;
+        let current = Number(currentPage);
+        let next = Number(currentPage) + 1;
+        newValues.push(prev);
+        newValues.push(current);
+        newValues.push(next);
+    } else {
+        let prev2 = Number(numberOfPages) - 2;
+        let prevlast = Number(numberOfPages) - 1;
+        let last = Number(numberOfPages);
+        newValues.push(prev2);
+        newValues.push(prevlast);
+        newValues.push(last);
+    }
+    return newValues;
+}
+
 const Pagination = ({numberOfPages}) => {
     const [apiGetParams, setApiGetParams] = useContext(ApiGetParamsContext);
     const [values, setValues] = useState([1, 2, 3]);
@@ -13,29 +35,8 @@ const Pagination = ({numberOfPages}) => {
     }
 
     useEffect(() => {
-        let newValues = [];
-
-        if (apiGetParams.currentPage <= 2) {
-            newValues = [1, 2, 3];
-            setValues(newValues);
-        } else if (apiGetParams.currentPage > 2 && apiGetParams.currentPage <= (numberOfPages-2)) {
-            let prev = Number(apiGetParams.currentPage) - 1;
-            let current = Number(apiGetParams.currentPage);
-            let next = Number(apiGetParams.currentPage) + 1;
-            newValues.push(prev);
-            newValues.push(current);
-            newValues.push(next);
-            setValues(newValues);
-        } else {
-            let prev2 = Number(numberOfPages) - 2;
-            let prevlast = Number(numberOfPages) - 1;
-            let last = Number(numberOfPages);
-            newValues.push(prev2);
-            newValues.push(prevlast);
-            newValues.push(last);
-            setValues(newValues);
-        }
-
+        let newValues = setPageRangeValues(apiGetParams.currentPage, numberOfPages);
+        setValues(newValues);
     },[apiGetParams.currentPage])
 
     if (Number(apiGetParams.currentPage) <= 2) {
