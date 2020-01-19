@@ -53,6 +53,11 @@ const SearchResultPage = () => {
         }
     }
 
+    let searchWithCorrectedWord = () => {
+        setApiGetParams({...apiGetParams, q:correctedSearchWord});
+        setCorrectedSearchWord("");
+    }
+
     return (
         <div>
             { displayedProducts ? 
@@ -76,7 +81,9 @@ const SearchResultPage = () => {
                 : <div className='no-results'>
                     <div>
                         {apiGetParams.q.length > 0 && apiGetParams.q != null ? (<div>Aucun resultat trouver pour: {apiGetParams.q}.</div>) : (<div></div>)}
-                        {correctedSearchWord.length > 0 && correctedSearchWord != null ? (<div>Voulez-vous dire: {correctedSearchWord}.</div>) : (<div></div>)}
+                        {correctedSearchWord.length > 0 && correctedSearchWord != null ? 
+                            (<div>Voulez-vous dire: <button onClick={() => searchWithCorrectedWord()}>{correctedSearchWord}</button>.</div>) 
+                            : (<div></div>)}
                     </div>
                 </div>}
             

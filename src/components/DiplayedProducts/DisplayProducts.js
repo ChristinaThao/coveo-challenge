@@ -11,8 +11,7 @@ const DisplayProducts = ({displayedProducts, searchWord}) => {
                 </div>
                 <div className="display-products">
                     {(displayedProducts != undefined && displayedProducts.length > 0) ? displayedProducts.map(displayedProduct => 
-                        (<Product title={displayedProduct.raw.systitle} price={displayedProduct.raw.tpprixnum}
-                            image={displayedProduct.raw.tpthumbnailuri} key={displayedProduct.raw.tpcodesaq}/>)) : (<div></div>)}
+                        (<Product product={displayedProduct.raw} key={displayedProduct.raw.tpcodesaq}/>)) : (<div></div>)}
                 </div>
             </div>
         )

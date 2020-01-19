@@ -6,3 +6,15 @@ button {
 * {
     font-family: 'Oxygen';
 }
+
+a {
+    color:black;
+    text-decoration: none;
+}
+
+a:hover 
+{
+     color: black; 
+     text-decoration:none; 
+     cursor:pointer;  
+}
