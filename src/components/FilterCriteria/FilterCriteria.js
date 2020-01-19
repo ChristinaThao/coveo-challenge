@@ -8,7 +8,6 @@ const FilterCriteria = ({criteria}) => {
     const [apiGetParams, setApiGetParams] = useContext(ApiGetParamsContext);
 
     function onChangeOptions(e) {
-        console.log(e.target.value);
         if (criteria.attribute="category") {
             setApiGetParams({...apiGetParams, q: e.target.value, filterCriteria: {price: []}})
         }

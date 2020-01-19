@@ -3,9 +3,7 @@ import React from 'react';
 import './Product.scss';
 
 const Product = ({product}) => {
-    const {systitle, tpprixnum, tpthumbnailuri, sysclickableuri} = product
-    // title={displayedProduct.raw.systitle} price={displayedProduct.raw.tpprixnum}
-    //                         image={displayedProduct.raw.tpthumbnailuri} 
+    const {systitle, tpprixnum, tpthumbnailuri, sysclickableuri} = product;
     return (
         <a href={sysclickableuri}>
             <div className='product'>
