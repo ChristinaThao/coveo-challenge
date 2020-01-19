@@ -66,7 +66,7 @@ const SearchResultPage = () => {
                             <Pagination numberOfPages={numberOfPages}/>
                         </div>
                         <br/>
-                        <DisplayProducts correctedSearchWord={correctedSearchWord} displayedProducts={displayedProducts}/>
+                        <DisplayProducts searchWord={apiGetParams.q} displayedProducts={displayedProducts}/>
                         <br/>
                         <div className='option'>
                             <Pagination numberOfPages={numberOfPages}/>
@@ -75,7 +75,6 @@ const SearchResultPage = () => {
                 </div> 
                 : <div className='no-results'>
                     <div>
-                        {console.log(apiGetParams.q)}
                         {apiGetParams.q.length > 0 && apiGetParams.q != null ? (<div>Aucun resultat trouver pour: {apiGetParams.q}.</div>) : (<div></div>)}
                         {correctedSearchWord.length > 0 && correctedSearchWord != null ? (<div>Voulez-vous dire: {correctedSearchWord}.</div>) : (<div></div>)}
                     </div>
